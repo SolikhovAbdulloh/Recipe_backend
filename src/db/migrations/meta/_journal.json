@@ -8,6 +8,13 @@
       "when": 1754119613908,
       "tag": "0000_illegal_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1754899393848,
+      "tag": "0001_loose_selene",
+      "breakpoints": true
     }
   ]
 }
