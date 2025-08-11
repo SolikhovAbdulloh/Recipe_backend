@@ -1,9 +1,9 @@
 import express from "express";
 import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
-import { favoritesTable } from "./db/schema.js";
 import { and, eq } from "drizzle-orm";
 import job from "./config/cron.js";
+import { favouritesTable } from "./db/schema.js";
 
 const app = express();
 const PORT = ENV.PORT || 5001;
@@ -25,7 +25,7 @@ app.post("/api/favorites", async (req, res) => {
     }
 
     const newFavorite = await db
-      .insert(favoritesTable)
+      .insert(favouritesTable)
       .values({
         userId,
         recipeId,
@@ -49,8 +49,8 @@ app.get("/api/favorites/:userId", async (req, res) => {
 
     const userFavorites = await db
       .select()
-      .from(favoritesTable)
-      .where(eq(favoritesTable.userId, userId));
+      .from(favouritesTable)
+      .where(eq(favouritesTable.userId, userId));
 
     res.status(200).json(userFavorites);
   } catch (error) {
@@ -64,11 +64,11 @@ app.delete("/api/favorites/:userId/:recipeId", async (req, res) => {
     const { userId, recipeId } = req.params;
 
     await db
-      .delete(favoritesTable)
+      .delete(favouritesTable)
       .where(
         and(
-          eq(favoritesTable.userId, userId),
-          eq(favoritesTable.recipeId, parseInt(recipeId))
+          eq(favouritesTable.userId, userId),
+          eq(favouritesTable.recipeId, parseInt(recipeId))
         )
       );
 
